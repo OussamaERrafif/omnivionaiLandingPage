@@ -43,20 +43,10 @@ export default function Hero() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.2 }}
-          className="flex flex-col sm:flex-row gap-4 justify-center mb-12"
+          className="flex justify-center mb-12"
         >
-          <div className="flex-1 max-w-md">
-            <div className="relative">
-              <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
-              <input
-                type="text"
-                placeholder="What do you want to research?"
-                className="w-full pl-12 pr-4 py-3 rounded-lg bg-card border border-border text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/50"
-              />
-            </div>
-          </div>
           <Button size="lg" className="gap-2">
-            Start Your Research Journey
+            Start Here
             <ArrowRight className="w-4 h-4" />
           </Button>
         </motion.div>
@@ -72,7 +62,7 @@ export default function Hero() {
             No credit card required
           </div>
           <div className="flex items-center gap-2">
-            <div className="w-2 h-2 rounded-full bg-primary" />5 free searches daily
+            <div className="w-2 h-2 rounded-full bg-primary" />3 free searches daily
           </div>
         </motion.div>
       </div>

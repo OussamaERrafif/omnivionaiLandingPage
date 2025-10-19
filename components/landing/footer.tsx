@@ -36,10 +36,15 @@ export default function Footer() {
           >
             <h4 className="font-semibold text-foreground mb-4">Product</h4>
             <ul className="space-y-2">
-              {["Features", "Pricing", "Security", "Roadmap"].map((item) => (
-                <li key={item}>
-                  <Link href="#" className="text-sm text-muted-foreground hover:text-foreground transition">
-                    {item}
+              {[
+                { name: "Features", href: "#" },
+                { name: "Pricing", href: "#" },
+                { name: "Security", href: "/security" },
+                { name: "Roadmap", href: "#" }
+              ].map((item) => (
+                <li key={item.name}>
+                  <Link href={item.href} className="text-sm text-muted-foreground hover:text-foreground transition">
+                    {item.name}
                   </Link>
                 </li>
               ))}
@@ -55,10 +60,15 @@ export default function Footer() {
           >
             <h4 className="font-semibold text-foreground mb-4">Company</h4>
             <ul className="space-y-2">
-              {["About", "Blog", "Careers", "Contact"].map((item) => (
-                <li key={item}>
-                  <Link href="#" className="text-sm text-muted-foreground hover:text-foreground transition">
-                    {item}
+              {[
+                { name: "About", href: "#" },
+                { name: "Blog", href: "#" },
+                { name: "Careers", href: "#" },
+                { name: "Contact", href: "/contacts" }
+              ].map((item) => (
+                <li key={item.name}>
+                  <Link href={item.href} className="text-sm text-muted-foreground hover:text-foreground transition">
+                    {item.name}
                   </Link>
                 </li>
               ))}
@@ -74,10 +84,15 @@ export default function Footer() {
           >
             <h4 className="font-semibold text-foreground mb-4">Legal</h4>
             <ul className="space-y-2">
-              {["Privacy", "Terms", "Cookies", "License"].map((item) => (
-                <li key={item}>
-                  <Link href="#" className="text-sm text-muted-foreground hover:text-foreground transition">
-                    {item}
+              {[
+                { name: "Privacy", href: "/privacy" },
+                { name: "Terms", href: "/terms" },
+                { name: "Cookies", href: "#" },
+                { name: "License", href: "#" }
+              ].map((item) => (
+                <li key={item.name}>
+                  <Link href={item.href} className="text-sm text-muted-foreground hover:text-foreground transition">
+                    {item.name}
                   </Link>
                 </li>
               ))}
