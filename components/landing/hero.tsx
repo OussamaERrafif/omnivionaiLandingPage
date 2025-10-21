@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion"
 import { Search, ArrowRight } from "lucide-react"
-import { Button } from "@/components/ui/button"
+import { LiquidGlassButton } from "@/components/ui/liquid-glass-button"
 
 export default function Hero() {
   return (
@@ -45,10 +45,10 @@ export default function Hero() {
           transition={{ duration: 0.6, delay: 0.2 }}
           className="flex justify-center mb-12"
         >
-          <Button size="lg" className="gap-2">
+          <LiquidGlassButton size="lg" className="gap-2">
             Start Here
             <ArrowRight className="w-4 h-4" />
-          </Button>
+          </LiquidGlassButton>
         </motion.div>
 
         <motion.div
