@@ -3,7 +3,7 @@
 import { useState } from "react"
 import { motion } from "framer-motion"
 import { Check } from "lucide-react"
-import { Button } from "@/components/ui/button"
+import { LiquidGlassButton } from "@/components/ui/liquid-glass-button"
 
 interface Plan {
   type: "free" | "pro" | "enterprise"
@@ -142,9 +142,9 @@ export default function Pricing() {
                 ))}
               </ul>
 
-              <Button className="w-full" variant={plan.popular ? "default" : "outline"}>
+              <LiquidGlassButton className="w-full" variant={plan.popular ? "default" : "outline"}>
                 Get Started
-              </Button>
+              </LiquidGlassButton>
             </motion.div>
           ))}
         </div>

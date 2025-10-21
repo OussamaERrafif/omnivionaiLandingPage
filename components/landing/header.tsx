@@ -1,61 +1,87 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import Link from "next/link"
+import Image from "next/image"
 import { Menu, X, Moon, Sun } from "lucide-react"
 import { useTheme } from "next-themes"
-import { Button } from "@/components/ui/button"
+import { LiquidGlassButton } from "@/components/ui/liquid-glass-button"
 
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false)
-  const { theme, setTheme } = useTheme()
+  const { resolvedTheme, setTheme } = useTheme()
+  const [offset, setOffset] = useState(0)
+
+  useEffect(() => {
+    const onScroll = () => {
+      // small translate effect proportional to scrollY but capped
+      const y = Math.min(window.scrollY, 60)
+      setOffset(y / 6) // gentle movement
+    }
+
+    window.addEventListener("scroll", onScroll, { passive: true })
+    return () => window.removeEventListener("scroll", onScroll)
+  }, [])
 
   return (
-    <header className="sticky top-0 z-50 backdrop-blur-xl bg-background/80 border-b border-border">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16">
-          {/* Logo */}
-          <Link href="/" className="flex items-center gap-2">
-            <div className="w-8 h-8 rounded-lg bg-primary flex items-center justify-center">
-              <span className="text-primary-foreground font-bold text-sm">AI</span>
+    <header className="pointer-events-none fixed inset-x-0 top-6 z-50">
+      <div
+        className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pointer-events-auto"
+        style={{ transform: `translateY(${offset}px)`, transition: "transform 280ms ease" }}
+      >
+  {/* Centered pill - transparent glass look */}
+  <div className="rounded-full bg-transparent border border-[rgba(255,255,255,0.06)] backdrop-blur-[8px] shadow-2xl shadow-[rgba(10,20,40,0.12)]">
+          <div className="flex items-center justify-between h-16 px-4 sm:px-6 lg:px-8">
+            {/* Logo */}
+            <Link href="/" className="flex items-center gap-3">
+              <div className="w-9 h-9 rounded-xl overflow-hidden flex items-center justify-center shadow-md bg-transparent">
+                <Image
+                  src={resolvedTheme === "dark" ? "/White.png" : "/Black.png"}
+                  alt="AI logo"
+                  width={36}
+                  height={36}
+                  priority={true}
+                />
+              </div>
+              <span className="font-semibold text-foreground hidden sm:inline">AI Deep Search</span>
+            </Link>
+
+            {/* Desktop Navigation */}
+            <nav className="hidden md:flex items-center gap-8">
+              <Link href="#features" className="text-sm text-muted-foreground hover:text-foreground transition">
+                Features
+              </Link>
+              <Link href="#pricing" className="text-sm text-muted-foreground hover:text-foreground transition">
+                Pricing
+              </Link>
+              <Link href="#" className="text-sm text-muted-foreground hover:text-foreground transition">
+                About
+              </Link>
+            </nav>
+
+            {/* Right Actions */}
+            <div className="flex items-center gap-3">
+              <button
+                onClick={() => setTheme(resolvedTheme === "dark" ? "light" : "dark")}
+                className="p-2 hover:bg-muted rounded-lg transition"
+                aria-label="Toggle theme"
+              >
+                {resolvedTheme === "dark" ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
+              </button>
+
+              <div className="hidden sm:flex gap-2">
+                <LiquidGlassButton variant="ghost" size="sm">
+                  Sign In
+                </LiquidGlassButton>
+                <LiquidGlassButton size="sm">Get Started</LiquidGlassButton>
+              </div>
+
+              {/* Mobile Menu Button */}
+              <button onClick={() => setIsOpen(!isOpen)} className="md:hidden p-2 hover:bg-muted rounded-lg transition">
+                {isOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+              </button>
             </div>
-            <span className="font-semibold text-foreground hidden sm:inline">AI Deep Search</span>
-          </Link>
-
-          {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center gap-8">
-            <Link href="#features" className="text-sm text-muted-foreground hover:text-foreground transition">
-              Features
-            </Link>
-            <Link href="#pricing" className="text-sm text-muted-foreground hover:text-foreground transition">
-              Pricing
-            </Link>
-            <Link href="#" className="text-sm text-muted-foreground hover:text-foreground transition">
-              About
-            </Link>
-          </nav>
-
-          {/* Right Actions */}
-          <div className="flex items-center gap-4">
-            <button
-              onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-              className="p-2 hover:bg-muted rounded-lg transition"
-            >
-              {theme === "dark" ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
-            </button>
-
-            <div className="hidden sm:flex gap-2">
-              <Button variant="ghost" size="sm">
-                Sign In
-              </Button>
-              <Button size="sm">Get Started</Button>
             </div>
-
-            {/* Mobile Menu Button */}
-            <button onClick={() => setIsOpen(!isOpen)} className="md:hidden p-2 hover:bg-muted rounded-lg transition">
-              {isOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
-            </button>
-          </div>
         </div>
 
         {/* Mobile Navigation */}
@@ -71,12 +97,12 @@ export default function Header() {
               About
             </Link>
             <div className="flex gap-2 px-4 pt-2">
-              <Button variant="ghost" size="sm" className="flex-1">
+              <LiquidGlassButton variant="ghost" size="sm" className="flex-1">
                 Sign In
-              </Button>
-              <Button size="sm" className="flex-1">
+              </LiquidGlassButton>
+              <LiquidGlassButton size="sm" className="flex-1">
                 Get Started
-              </Button>
+              </LiquidGlassButton>
             </div>
           </nav>
         )}
